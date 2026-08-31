@@ -19,7 +19,7 @@ applied by `install.sh`.
 Both steps are required — `omarchy plugin add` cannot run sudo.
 
 ```sh
-omarchy plugin add https://github.com/YOUR_GITHUB_USER/omarchy-vi-mode.git --enable
+omarchy plugin add https://github.com/oliverlukschander/omarchy-vi-mode.git --enable
 ~/.config/omarchy/plugins/oliverlukschander.vi-mode/install.sh
 ```
 
