@@ -56,6 +56,15 @@ omarchy plugin remove oliverlukschander.vi-mode
 Run the uninstaller first. Removing the plugin folder also deletes the
 uninstaller.
 
+## License and dependencies
+
+MIT. See [LICENSE](LICENSE).
+
+External runtime dependency: [keyd](https://github.com/rvaiya/keyd) (Arch package `keyd`).
+`install.sh` installs it with `omarchy pkg add keyd`, writes `/etc/keyd/omarchy-vi-mode.conf`,
+and enables the `keyd` systemd service. That step asks for sudo in a terminal; the
+plugin itself never runs sudo or install hooks.
+
 ## Why keyd
 
 - Official keyd example is Caps + hjkl as arrows
