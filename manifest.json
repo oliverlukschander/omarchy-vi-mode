@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "oliverlukschander.vi-mode",
   "name": "Vi Mode",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Oliver Lukschander",
   "license": "MIT",
   "description": "System-wide Caps Lock + hjkl arrow keys. Caps Lock itself is disabled.",
