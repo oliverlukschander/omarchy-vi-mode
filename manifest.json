@@ -2,17 +2,17 @@
   "schemaVersion": 1,
   "id": "oliverlukschander.vi-mode",
   "name": "Vi Mode",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "author": "Oliver Lukschander",
   "license": "MIT",
-  "description": "System-wide Caps Lock + hjkl arrow keys. Caps Lock itself is disabled.",
+  "description": "Caps or Ctrl + hjkl arrows, optional Caps/Ctrl swap, and window resize.",
   "kinds": ["bar-widget"],
   "entryPoints": {
     "barWidget": "BarWidget.qml"
   },
   "barWidget": {
     "displayName": "Vi Mode",
-    "description": "Hold Caps Lock and use h/j/k/l as left/down/up/right in every app.",
+    "description": "Hold Caps or Ctrl + hjkl for arrows. Optional Caps/Ctrl swap and window resize.",
     "category": "Input",
     "allowMultiple": false,
     "defaultSection": "right"

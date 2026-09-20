@@ -63,7 +63,7 @@ BarWidget {
     bar: root.bar
     text: ""
     slotSize: Style.bar.statusSlot
-    tooltipText: root.mappingReady ? "Vi Mode on — Caps + hjkl" : "Vi Mode off"
+    tooltipText: panelLoader.item && panelLoader.item.tooltip ? panelLoader.item.tooltip : "Vi Mode"
     opacity: root.mappingReady ? 1.0 : 0.55
 
     onPressed: function(b) {
