@@ -42,7 +42,7 @@ ensure_sudo() {
     echo "Run: $PLUGIN_DIR/uninstall.sh" >&2
     exit 1
   fi
-  echo "Updating /etc/keyd needs root. sudo will ask for your password."
+  echo "Updating /etc/keyd and libinput quirks needs root. sudo will ask for your password."
   "$SUDO" -v
 }
 
@@ -91,6 +91,15 @@ if [[ -n $target ]]; then
       reload_keyd
     fi
   fi
+fi
+
+quirks_tmp=$(py "$PLUGIN_DIR/scripts/libinput_quirks.py" uninstall-body)
+if [[ -n ${quirks_tmp:-} ]]; then
+  echo "Keeping other libinput quirks in /etc/libinput/local-overrides.quirks"
+  as_root "$PLUGIN_DIR/scripts/libinput_quirks.py" install "$quirks_tmp"
+else
+  echo "Removing Vi Mode libinput disable-while-typing quirk"
+  as_root "$PLUGIN_DIR/scripts/libinput_quirks.py" remove
 fi
 
 py "$PLUGIN_DIR/scripts/menu.py" uninstall

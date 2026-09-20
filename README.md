@@ -35,8 +35,11 @@ omarchy plugin add https://github.com/oliverlukschander/omarchy-vi-mode.git --en
 ```
 
 `install.sh` asks for sudo: it installs `keyd`, writes `/etc/keyd/omarchy-vi-mode.conf`
-(keeping other plugins' `# BEGIN` / `# END` blocks), and enables the `keyd`
-service.
+(keeping other plugins' `# BEGIN` / `# END` blocks), enables the `keyd`
+service, and marks keyd's virtual keyboard as internal in
+`/etc/libinput/local-overrides.quirks` so the laptop touchpad is ignored
+while typing. Log out once after the first install so Hyprland reloads
+libinput.
 
 Click the  icon in the bar, or *Setup → Vi Mode* in the Omarchy menu, and
 use **Install mapping** if you would rather run that from a floating terminal.
@@ -81,7 +84,8 @@ omarchy plugin remove oliverlukschander.vi-mode
 
 Run the uninstaller first. Removing the plugin folder also deletes the
 uninstaller. Other plugins that share `/etc/keyd/omarchy-vi-mode.conf` (Mac
-Option) keep their `# BEGIN` / `# END` blocks.
+Option) keep their `# BEGIN` / `# END` blocks. The libinput quirk is removed
+the same way, leaving any unrelated sections in `local-overrides.quirks`.
 
 ## License and dependencies
 
@@ -89,8 +93,9 @@ MIT. See [LICENSE](LICENSE).
 
 External runtime dependency: [keyd](https://github.com/rvaiya/keyd) (Arch package `keyd`).
 `install.sh` installs it with `omarchy pkg add keyd`, writes `/etc/keyd/omarchy-vi-mode.conf`,
-and enables the `keyd` systemd service. That step asks for sudo in a terminal; the
-plugin itself never runs sudo or install hooks.
+enables the `keyd` systemd service, and writes a libinput quirk so keyd still
+pairs with the internal touchpad for disable-while-typing. That step asks for
+sudo in a terminal; the plugin itself never runs sudo or install hooks.
 
 ## Why keyd
 

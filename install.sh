@@ -47,7 +47,7 @@ ensure_sudo() {
     echo "Run: $PLUGIN_DIR/install.sh" >&2
     exit 1
   fi
-  echo "Writing /etc/keyd needs root. sudo will ask for your password."
+  echo "Writing /etc/keyd and libinput quirks needs root. sudo will ask for your password."
   "$SUDO" -v
 }
 
@@ -93,6 +93,14 @@ echo "Writing $target (keeps other plugins' # BEGIN / # END blocks)"
 tmp=$(py "$PLUGIN_DIR/scripts/keyd_conf.py" prepare "$target")
 as_root "$PLUGIN_DIR/scripts/keyd_conf.py" install "$tmp" "$target"
 
+had_dwt=0
+if grep -qF "# BEGIN oliverlukschander.vi-mode" /etc/libinput/local-overrides.quirks 2>/dev/null; then
+  had_dwt=1
+fi
+echo "Writing /etc/libinput/local-overrides.quirks (keyd counts as the laptop keyboard)"
+quirks_tmp=$(py "$PLUGIN_DIR/scripts/libinput_quirks.py" prepare)
+as_root "$PLUGIN_DIR/scripts/libinput_quirks.py" install "$quirks_tmp"
+
 echo "Enabling keyd"
 ensure_sudo
 "$SUDO" "$SYSTEMCTL" enable --now keyd
@@ -125,3 +133,7 @@ print()
 print("Omarchy CapsLock compose emojis only work if Caps Lock is not the arrow layer.")
 print("Use Super + Ctrl + E for the emoji picker. Both Shift keys together still toggles real Caps Lock.")
 '
+if [[ $had_dwt -eq 0 ]]; then
+  echo
+  echo "Log out once so the touchpad is ignored while typing (libinput reloads on login)."
+fi
