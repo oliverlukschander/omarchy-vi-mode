@@ -85,7 +85,7 @@ function resizeDescription(status) {
   var extra = ""
   if (status && !status.resize && status.foreignResizeToggle)
     extra = " The separate Vi Resize plugin still binds SUPER + SHIFT + hjkl."
-  return "Hold " + mod + " + Shift + hjkl to resize the window (also SUPER + SHIFT + hjkl)." + extra
+  return "Hold " + mod + " + Shift + hjkl to grow the window by 1/4 of the monitor on a 25/50/75 grid (also SUPER + SHIFT + hjkl)." + extra
 }
 
 function bindings(status) {

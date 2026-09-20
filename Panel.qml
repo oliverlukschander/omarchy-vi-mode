@@ -407,7 +407,7 @@ Panel {
         Toggle {
           width: parent.width
           label: "Resize mode"
-          description: "Hold " + root.arrowMod + " + Shift + hjkl to resize the window (also SUPER + SHIFT + hjkl)."
+          description: "Hold " + root.arrowMod + " + Shift + hjkl to grow the window by 1/4 of the monitor on a 25/50/75 grid (also SUPER + SHIFT + hjkl)."
           checked: root.resizeOn
           hasCursor: root.actionCursor === 2
           foreground: root.foreground

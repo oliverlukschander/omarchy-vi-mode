@@ -16,8 +16,8 @@ Open the  panel and pick:
 1. **Arrow keys** — hold **Caps Lock** or **Ctrl** with `h` / `j` / `k` / `l`
 2. **Swap Caps Lock and Ctrl** — the two keys trade places; the arrow-layer
    key you chose stays on that physical key
-3. **Resize mode** — hold the arrow-layer key + Shift + `hjkl` to resize the
-   window (also SUPER + SHIFT + `hjkl`)
+3. **Resize mode** — press the arrow-layer key + Shift + `hjkl` to grow the
+   window by 1/4 of the monitor (also SUPER + SHIFT + `hjkl`)
 
 `omarchy plugin add` never runs install hooks or sudo, so the mapping is
 applied by `install.sh`. Changing options in the panel writes
@@ -68,9 +68,13 @@ Omarchy's CapsLock compose emoji shortcuts (`CapsLock M S` and friends) stop
 working while Caps is the arrow layer. `Super + Ctrl + E` still opens the
 emoji picker.
 
-Resize mode is the keyboard analog of SUPER + right-click drag. SUPER + J / K
-/ L stay on Omarchy defaults (split, keybindings, layout). SUPER + SHIFT +
-arrows still swap windows. The separate
+Resize mode is the keyboard analog of SUPER + right-click drag. Each keypress
+grows width (`h`/`l`) or height (`j`/`k`) by one quarter of the monitor, on a
+25/50/75 grid. Two windows at 50:50 grow once to 25:75; grow the other window
+twice to reach 75:25. A window cannot grow past 75%.
+
+SUPER + J / K / L stay on Omarchy defaults (split, keybindings, layout).
+SUPER + SHIFT + arrows still swap windows. The separate
 [Vi Resize](https://github.com/oliverlukschander/omarchy-vi-resize) plugin is
 no longer required; turn this option on instead. If that plugin is still
 installed, SUPER + SHIFT + `hjkl` stays bound until you remove it.
