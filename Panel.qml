@@ -25,7 +25,6 @@ Panel {
 
   readonly property var barIdentity: hostWidget || root
   readonly property string pluginDir: Quickshell.env("HOME") + "/.config/omarchy/plugins/oliverlukschander.vi-mode"
-  readonly property string settingsPath: Quickshell.env("HOME") + "/.config/omarchy/oliverlukschander.vi-mode.json"
   readonly property bool mappingReady: Model.ready(status)
   readonly property color foreground: bar ? bar.foreground : Color.foreground
   readonly property color dim: Qt.darker(foreground, 1.55)
@@ -143,27 +142,6 @@ Panel {
     XDG_SESSION_TYPE: Quickshell.env("XDG_SESSION_TYPE")
   })
 
-  FileView {
-    path: root.settingsPath
-    watchChanges: true
-    printErrors: false
-    onLoaded: root.applySettingsJson(text())
-    onFileChanged: reload()
-  }
-
-  function applySettingsJson(text) {
-    try {
-      var obj = JSON.parse(String(text || "").trim())
-      if (obj.navKey === "control" || obj.navKey === "capslock")
-        root.navKey = obj.navKey
-      if (Object.prototype.hasOwnProperty.call(obj, "swapCapsCtrl"))
-        root.swapOn = !!obj.swapCapsCtrl
-      if (Object.prototype.hasOwnProperty.call(obj, "resize"))
-        root.resizeOn = !!obj.resize
-      root.navChip = root.navKey === "control" ? 1 : 0
-    } catch (e) {}
-  }
-
   function applyParsed(s) {
     root.status = s
     if (s.navKey === "control" || s.navKey === "capslock")
@@ -274,10 +252,12 @@ Panel {
     onTriggered: root.refresh()
   }
 
+  // Settings arrive through status.py, which reads them with a 1 MiB cap.
   Timer {
     interval: 5000
     running: true
     repeat: true
+    triggeredOnStart: true
     onTriggered: if (!setProc.running && root.pendingSet === "") root.refresh()
   }
 
